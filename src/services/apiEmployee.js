@@ -20,11 +20,17 @@ async function DeleteEmployee(id, ){
     return res
 }
 
+async function getEmployeeData(id, ){
+    const {data:res} = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/employee/${id}`)
+    return res
+}
+
 const ApiEmployee = {
     CreateEmployee,
     GetAllEmployee,
     UpdateEmployee,
-    DeleteEmployee
+    DeleteEmployee,
+    getEmployeeData
 }
 
 export default ApiEmployee

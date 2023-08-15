@@ -15,9 +15,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.className} w-full h-screen pt-20 pb-20 p-5 flex items-start justify-center bg-gray-300 overflow-auto`}
       >
-        <div className="flex flex-col items-center w-full ">
-          <Theme>{children}</Theme>
-        </div>
+        <Theme>{children}</Theme>
       </body>
     </html>
   );

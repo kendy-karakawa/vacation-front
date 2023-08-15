@@ -2,18 +2,15 @@
 
 import DeleteModal from "@/components/Modal/deleteModal";
 import { useState } from "react";
+import Link from "next/link";
 
-export default function UserTbody({ data, setEditEmployee, setUserModal, setToggle }) {
+export default function UserTbody({ data, setToggle }) {
   const [deleteModal, setDeleteModal] = useState(false);
   const { id, name, position, hireDate } = data;
   const date = new Date(hireDate).toISOString().split("T")[0];
 
   const handleOpenModal = () => setDeleteModal(true)
-  function editItem(e) {
-    e.preventDefault();
-    setEditEmployee(data);
-    setUserModal(true);
-  }
+
 
   return (
     <>
@@ -29,15 +26,6 @@ export default function UserTbody({ data, setEditEmployee, setUserModal, setTogg
             {" "}
             {date}
           </td>
-
-          <td className="px-6 py-4  text-gray-900">
-            <button
-              className="font-medium text-blue-600 hover:underline"
-              onClick={editItem}
-            >
-              Editar
-            </button>
-          </td>
           <td className="px-6 py-4  text-gray-900">
             <button className="font-medium text-red-600 hover:underline"
             onClick={handleOpenModal}
@@ -46,9 +34,9 @@ export default function UserTbody({ data, setEditEmployee, setUserModal, setTogg
             </button>
           </td>
           <td className="px-6 py-4  text-gray-900">
-            <button className="font-medium text-blue-600 hover:underline">
-              Ir
-            </button>
+            <Link className="font-medium text-gray-600 hover:underline" href={`/vacation/${id}`}>
+              Mais
+            </Link>
           </td>
         </tr>
       </tbody>

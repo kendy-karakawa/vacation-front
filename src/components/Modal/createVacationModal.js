@@ -1,52 +1,44 @@
 "use client";
 
-import ApiEmployee from "@/services/apiEmployee";
+import ApiVacation from "@/services/apiVacation";
 import { useState } from "react";
 
-export default function CreateUserModal({
-  setUserModal,
-  toggle,
-  setToggle,
-}) {
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    position:  "",
-    hireDate: ""
+export default function CreateVacationModal({setVacationModal, setToggle, id}) {
+  const [vacationPeriod, setVacationPeriod] = useState({
+    start: "",
+    end: "",
   });
 
- 
 
-  const { name, position, hireDate } = userInfo;
+  const { start, end } = vacationPeriod;
 
   const handleCloseModal = (e) => {
     e.preventDefault();
-    setUserInfo({
-      name: "",
-      position: "",
-      hireDate: "",
+    setVacationPeriod({
+      start: "",
+      end: "",
     });
-    setUserModal(false);
+    setVacationModal(false);
   };
 
-  async function onSubmit(e) {
+  async function addVacation(e) {
     e.preventDefault();
     try {
       const body = {
-        name,
-        position,
-        hireDate: new Date(hireDate).getTime(),
+        startDate:new Date(start).getTime(),
+        endDate: new Date(end).getTime(),
+        id: parseInt(id)
       };
-      await ApiEmployee.CreateEmployee(body);
-      setUserInfo({
-        name: "",
-        position: "",
-        hireDate: "",
+      await ApiVacation.CreateVacation(body);
+      setVacationPeriod({
+        start: "",
+        end: "",
       });
-      setToggle(!toggle);
-      setUserModal(false);
+      setVacationModal(false);
+      setToggle((prev) => !prev)
     } catch (error) {
       console.log(error);
-      alert("Campos invalidos");
+      alert(error.response.data.message);
     }
   }
 
@@ -62,51 +54,34 @@ export default function CreateUserModal({
         <h3 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">
           Cadastrar Colaborador
         </h3>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={addVacation}>
           <div className="mb-6">
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Nome
+              Data de Início
             </label>
             <input
               className="w-full bg-blue-50 border border-blue-300 text-blue-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-              label="name"
-              type="text"
-              placeholder="Nome"
-              value={name}
-              required
-              onChange={(e) =>
-                setUserInfo({ ...userInfo, name: e.target.value })
-              }
-            />
-          </div>
-          <div className="mb-6">
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Cargo
-            </label>
-            <input
-              className="w-full bg-blue-50 border border-blue-300 text-blue-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-              label="Position"
-              type="text"
-              placeholder="Cargo"
-              value={position}
-              required
-              onChange={(e) =>
-                setUserInfo({ ...userInfo, position: e.target.value })
-              }
-            />
-          </div>
-          <div className="mb-6">
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Data de Contratação
-            </label>
-            <input
-              className="w-full bg-blue-50 border border-blue-300 text-blue-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-              label="hireDate"
+              label="startDate"
               type="date"
-              placeholder="Data de Contratação."
-              value={hireDate}
+              value={start}
+              required
               onChange={(e) =>
-                setUserInfo({ ...userInfo, hireDate: e.target.value })
+                setVacationPeriod({ ...vacationPeriod, start: e.target.value })
+              }
+            />
+          </div>
+          
+          <div className="mb-6">
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Data de Término
+            </label>
+            <input
+              className="w-full bg-blue-50 border border-blue-300 text-blue-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+              label="endDate"
+              type="date"
+              value={end}
+              onChange={(e) =>
+                setVacationPeriod({ ...vacationPeriod, end: e.target.value })
               }
             />
           </div>
