@@ -52,7 +52,7 @@ export default function CreateVacationModal({setVacationModal, setToggle, id}) {
           X
         </button>
         <h3 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">
-          Cadastrar Colaborador
+          Adicionar férias
         </h3>
         <form onSubmit={addVacation}>
           <div className="mb-6">
