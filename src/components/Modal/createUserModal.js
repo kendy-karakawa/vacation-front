@@ -14,15 +14,12 @@ export default function CreateUserModal({
   const [userInfo, setUserInfo] = useState({
     name: editEmployee ? editEmployee.name : "",
     position: editEmployee ? editEmployee.position : "",
-    hireDate: editEmployee
-      ? formatDate(editEmployee.hireDate)
-      : "",
+    // hireDate: editEmployee
+    //   ? format(new Date(editEmployee.hireDate), "yyyy-MM-dd")
+    //   : "",
   });
 
-  function formatDate(el){
-    const date = new Date(el)
-    return format(date, "yyyy-MM-dd")
-  }
+ 
 
   const { name, position, hireDate } = userInfo;
 
